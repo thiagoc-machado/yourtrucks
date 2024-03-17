@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, Accessory, Photo
+from .models import Cars, Accessory, Photo, Video
 from .forms import CarAdminForm
 from django.template.loader import get_template
 from django.utils.html import format_html
@@ -7,7 +7,7 @@ from django.utils.html import format_html
 
 class PhotoInline(admin.TabularInline):
     model = Photo
-    fields = ('carphoto_thumbnail', 'is_main')
+    fields = ('carphoto_thumbnail', 'is_main', 'truck_photos') 
     readonly_fields = ('carphoto_thumbnail',)
     extra = 1
 
@@ -22,16 +22,26 @@ class PhotoInline(admin.TabularInline):
 
     carphoto_thumbnail.short_description = ("Thumbnail")
 
-@admin.register(Car)
-class CarAdmin(admin.ModelAdmin):
-    form = CarAdminForm
-    inlines = [PhotoInline]
-    list_display = ['car_title', 'year', 'price', 'is_featured']
-    search_fields = ['car_title', 'year', 'price']
 
-    def save_related(self, request, form, formsets, change):
-        super().save_related(request, form, formsets, change)
-        form.save_photos(form.instance)
+class VideoInline(admin.TabularInline):
+    model = Video
+    extra = 1
+
+
+@admin.register(Cars)
+class CarAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Cars._meta.get_fields()]
+    inlines = [PhotoInline, VideoInline]
+
+
+    # form = CarAdminForm
+    # inlines = [PhotoInline]
+    # list_display = ['car_title', 'year', 'price', 'is_featured']
+    # search_fields = ['car_title', 'year', 'price']
+
+    # def save_related(self, request, form, formsets, change):
+    #     super().save_related(request, form, formsets, change)
+    #     form.save_photos(form.instance)
 
 
 # from django.contrib import admin

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Team
-from cars.models import Car
+from cars.models import Cars
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -9,16 +9,16 @@ from django.contrib import messages
 
 def home(request):
     teams = Team.objects.all()
-    featured_cars = Car.objects.order_by('-created_date').filter(is_featured=True)
-    all_cars = Car.objects.order_by('-created_date')
-    model_search = Car.objects.values_list('model', flat=True).distinct()
-    city_search = Car.objects.values_list('city', flat=True).distinct()
-    year_search = Car.objects.values_list('year', flat=True).distinct()
-    body_style_search = Car.objects.values_list('body_style', flat=True).distinct()
+    featured_Cars = Cars.objects.order_by('-created_date').filter(is_featured=True)
+    all_Carss = Cars.objects.order_by('-created_date')
+    model_search = Cars.objects.values_list('model', flat=True).distinct()
+    city_search = Cars.objects.values_list('city', flat=True).distinct()
+    year_search = Cars.objects.values_list('year', flat=True).distinct()
+    body_style_search = Cars.objects.values_list('body_style', flat=True).distinct()
     data = {
         'teams': teams,
-        'featured_cars': featured_cars,
-        'all_cars': all_cars,
+        'featured_Carss': featured_Cars,
+        'all_Carss': all_Carss,
         'model_search': model_search,
         'city_search': city_search,
         'year_search': year_search,
@@ -45,7 +45,7 @@ def contact(request):
         phone = request.POST['phone']
         message = request.POST['message']
 
-        email_subject = 'You have a new message from CarDealer Website regarding ' + subject
+        email_subject = 'You have a new message from CarsDealer Website regarding ' + subject
         message_body = 'Name: ' + name + '. Email: ' + email + '. Phone: ' + phone + '. Message: ' + message
 
         admin_info = User.objects.get(is_superuser=True)
