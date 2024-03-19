@@ -6,11 +6,11 @@ from .models import Cars, Photo
 class CarAdminForm(forms.ModelForm):
     class Meta:
         model = Cars
-        fields = ('title', 'slug')
+        fields = '__all__'
 
-    photos = forms.FileField(
+    photos = forms.ImageField(
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
-        label=("Add photos"),
+        label=_("Add photos"),
         required=False,
     )
 
@@ -19,8 +19,8 @@ class CarAdminForm(forms.ModelForm):
         for upload in self.files.getlist("photos"):
             validate_image_file_extension(upload)
 
-    def save_photos(self, Cars):
+    def save_photos(self, car):
         """Process each uploaded image."""
         for upload in self.files.getlist("photos"):
-            photo = Photo(Cars=Cars, Cars_photos=upload)
+            photo = Photo(truck=car, truck_photos=upload)
             photo.save()

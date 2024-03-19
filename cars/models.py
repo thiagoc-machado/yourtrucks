@@ -95,12 +95,12 @@ class Cars(models.Model):
         ('6', '6'),
     )
     IS_FEATURED_CHOICES = (
-        ('1', 'No'),
-        ('2', 'Si'),
+        (False, 'No'),
+        (True, 'Si'),
     )
     WARRANTY_CHOICES = (
-        ('1', 'No'),
-        ('2', 'Si'),
+        (False, 'No'),
+        (True, 'Si'),
     )
     OWNERS_CHOICE = (
         ('1', '1'),
@@ -172,7 +172,6 @@ class Cars(models.Model):
     passengers = models.IntegerField(choices = PASSENGERS_CHOICES, blank=True, null=True, verbose_name='Passageros')
     condition = models.CharField(max_length=100, blank=True, null=True,choices=CONDITION_CHOICES, verbose_name='Condición')
     obs = models.TextField(blank=True, null=True, verbose_name='Observaciones')
-    slug = models.SlugField(max_length=1024)
     
     # Specifications
     ref = models.CharField(max_length=100, blank=True, null=True, verbose_name='Referencia')
