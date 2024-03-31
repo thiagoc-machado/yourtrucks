@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+
+{% block title %} | Inicio {% endblock %}
+{% block content %}
+
+{% load humanize %}
+{% load static %}
+<!-- Inicio del banner -->
+<!-- Ingresa a .com para más proyectos -->
+<div class="banner" id="banner">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner banner-slider-inner text-center">
+            <div class="carousel-item banner-max-height active item-bg">
+                <img class="d-block w-100 h-100" src="{% static 'img/truck3.jpg' %}" alt="banner">
+                <div class="carousel-content container banner-info-2 bi-2 text-left">
+                
+                    <h3>Conduce tus propios sueños</h3>
+                    <h5>Permítenos guiarte a través de un enfoque innovador y libre de estrés para encontrar tu camión soñado.</h5>
+                    <a href="{% url 'services' %}" class="btn btn-lg btn-theme">Leer más</a>
+                </div>
+            </div>
+            <div class="carousel-item banner-max-height item-bg">
+                <img class="d-block w-100 h-100" src="{% static 'img/truck1.jpg' %}" alt="banner">
+                <div class="carousel-content container banner-info-2 bi-2 text-left">
+                    <h3>Combustible para el alma</h3>
+                    <h5>Permítenos guiarte a través de un enfoque innovador y libre de estrés para encontrar tu camión soñado.</h5>
+                    <a href="{% url 'services' %}" class="btn btn-lg btn-theme">Leer más</a>
+                </div>
+            </div>
+            <div class="carousel-item banner-max-height item-bg">
+                <img class="d-block w-100 h-100" src="{% static 'img/truck4.webp' %}" alt="banner">
+                <div class="carousel-content container banner-info-2 bi-2 text-left">
+                    <h3>camión para todos</h3>
+                    <h5>Permítenos guiarte a través de un enfoque innovador y libre de estrés para encontrar tu camión soñado.</h5>
+                    <a href="{% url 'services' %}" class="btn btn-lg btn-theme">Leer más</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Inicio de la caja de búsqueda 3 -->
+        <div class="search-box-4 sb-8">
+            <form action="{% url 'search' %}" method="">
+                <div class="form-group">
+                    <input type="text" name="keyword" placeholder="Buscar por nombre de camión" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control search-fields" name="model">
+                        <option selected="true" disabled="disabled">Modelo</option>
+                        {% for model in model_search %}
+                          <option value="{{model}}">{{model}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+				<!-- Ingresa a .com para más proyectos -->
+                <div class="form-group">
+                    <select class="form-control search-fields" name="city">
+                        <option selected="true" disabled="disabled">Ubicación</option>
+                        {% for city in city_search %}
+                          <option value="{{city}}">{{city}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="year">
+                        <option selected="true" disabled="disabled">Año</option>
+                        {% for year in year_search %}
+                          <option value="{{year}}">{{year}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="body_style">
+                        <option selected="true" disabled="disabled">Seleccionar tipo de camión</option>
+                        {% for body_style in body_style_search %}
+                          <option value="{{body_style}}">{{body_style}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="range-slider clearfix">
+                                <label>Precio</label>
+                                <div data-min="0" data-max="150000"  data-min-name="min_price" data-max-name="max_price" data-unit="EUR" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                <div class="form-group">
+                    <button class="btn btn-block button-theme btn-md">
+                        <i class="fa fa-filter"></i> Filtrar
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- Fin de la caja de búsqueda 3 -->
+        <a class="carousel-control-prev none-580" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="slider-mover-left" aria-hidden="true">
+                <i class="fa fa-angle-left"></i>
+            </span>
+        </a>
+        <a class="carousel-control-next none-580" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="slider-mover-right" aria-hidden="true">
+                <i class="fa fa-angle-right"></i>
+            </span>
+        </a>
+		<!-- Ingresa a .com para más proyectos -->
+    </div>
+</div>
+<!-- Fin del banner -->
+
+<!-- Inicio de la sección de camiones destacados -->
+<div class="featured-car content-area-5">
+    <div class="container">
+        <!-- Título principal -->
+        <div class="main-title">
+            <h1>camiones <span>Destacados</span></h1>
+            <p>Entre muchos de nuestros veiculos disponibles, aquí hay algunas opciones que podrían interesarte.</p>
+        </div>
+        <!-- Área del control deslizante de Slick -->
+        <div class="slick-slider-area clearfix">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+              {% for car in featured_cars %}
+                <div class="slick-slide-item">
+                    <div class="car-box-3">
+                        <div class="car-thumbnail">
+                            <a href="{% url 'car_detail' car.id %}" class="car-img">
+                                <div class="tag-2">Destacado</div>
+                                <div class="price-box">
+                                    <span>${{car.price | intcomma}}</span>
+                                </div>
+                                <img class="d-block w-100" src="{{ car.get_main_photo.car_photos.url }}" alt="car" style="min-height: 262px; max-height: 262px;">
+                            </a>
+                            <div class="carbox-overlap-wrapper">
+                                <div class="overlap-box">
+                                    <div class="overlap-btns-area">
+                                        <div class="car-magnify-gallery">
+                                            {% for photo in car.get_all_photos %}
+                                                <a href="{{ photo.car_photos.url }}" class="overlap-btn">
+                                                    <img class="hidden" src="{{ photo.car_photos.url }}">
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Ingresa a .com para más proyectos -->
+                        <div class="detail">
+                            <h1 class="title">
+                                <a href="{% url 'car_detail' car.id %}">{{ car.car_title }}</a>
+                            </h1>
+                            <div class="location">
+                                <a href="{% url 'car_detail' car.id %}">
+                                    <i class="flaticon-pin"></i>{{car.state}}, {{car.city}}
+                                </a>
+                            </div>
+                            <ul class="facilities-list clearfix">
+                                <li>{{car.fuel_type}}</li>
+                                <li>{{car.miles | intcomma}} km</li>
+                                <li>{{car.transmission}}</li>
+                                <li>{{car.body_style}}</li>
+                                <li>{{car.color}}</li>
+                                <li>{{car.year}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="slick-btn">
+                <div class="slick-prev slick-arrow-buton sab-4">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="slick-next slick-arrow-buton sab-3">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin de la sección de camiones destacados -->
+
+<!-- Inicio de la sección de camiones en alquiler -->
+<div class="featured-car content-area">
+    <div class="container">
+        <!-- Título principal -->
+        <div class="main-title">
+            <h1>Últimos <span>camiones</span></h1>
+            <p></p>
+        </div>
+        <div class="row">
+          {% for car in all_cars|slice:":6" %}
+            <div class="col-lg-4 col-md-6">
+                <div class="car-box">
+                    <div class="car-thumbnail">
+                        <a href="{% url 'car_detail' car.id %}" class="car-img">
+                            <div class="tag">En venta</div>
+                            <img class="d-block w-100" src="{{ car.get_main_photo.car_photos.url }}" alt="car" style="min-height: 262px; max-height: 262px;">
+                            <div class="facilities-list clearfix">
+                                <ul>
+                                    <li>
+                                        <span><i class="flaticon-way"></i></span>{{car.miles | intcomma}} mi
+                                    </li>
+                                    <li>
+                                        <span><i class="flaticon-calendar-1"></i></span>{{car.year}}
+                                    </li>
+                                    <li>
+                                        <span><i class="flaticon-manual-transmission"></i></span>{{car.transmission}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                        <!-- Ingresa a .com para más proyectos -->
+                        <div class="carbox-overlap-wrapper">
+                            <div class overlap-box>
+                                <div class="overlap-btns-area">
+                                    <div class="car-magnify-gallery">
+                                        {% for photo in car.get_all_photos %}
+                                            <a href="{{ photo.car_photos.url }}" class="overlap-btn">
+                                                <img class="hidden" src="{{ photo.car_photos.url }}">
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <h1 class="title">
+                            <a href="{% url 'car_detail' car.id %}">{{car.car_title}}</a>
+                        </h1>
+                        <div class="location">
+                            <a href="{% url 'car_detail' car.id %}">
+                                <i class="flaticon-pin"></i>{{car.state}}, {{car.city}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer clearfix">
+                        <div class="pull-left ratings days">
+                            <p class="cartype">{{car.body_style}}</p>
+                        </div>
+                        <div class="pull-right">
+                            <p class="price">$ {{car.price | intcomma}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Ingresa a .com para más proyectos -->
+          {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Fin de la sección de camiones en alquiler -->
+
+
+        </div>
+    </div>
+</div>
+<!-- Fin de la sección de camiones en alquiler -->
+
+
+<!-- Inicio de nuestro equipo -->
+<div class="our-team content-area bg-grea-3">
+    <div class="container">
+        <!-- Título principal -->
+        <div class="main-title">
+            <h1>Equipo <span>Ejecutivo</span></h1>
+            <p>Equipo trabajando para mantener la calidad de nuestro sitio web de concesionarios de camiones.</p>
+        </div>
+        <!-- Área del control deslizante de Slick -->
+        <div class="slick-slider-area clearfix">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 4, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+              {% for team in teams %}
+                <div class="slick-slide-item">
+                    <div class="team-1">
+                        <div class="photo">
+                            <a href="#">
+                                <img src="{{ team.photo.url }}" alt="team-1" class="img-fluid">
+                            </a>
+                            <div class="social-list clearfix">
+                                <a href="{{team.facebook_link}}" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                                <a href="{{team.twitter_link}}" target="_blank" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                                <a href="{{team.google_plus_link}}" target="_blank" class="google-bg"><i class="fa fa-google"></i></a>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <h4><a href="#">{{team.first_name}} {{team.last_name}}</a></h4>
+                            <h5>{{team.designation}}</h5>
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin de nuestro equipo -->
+
+<!-- Inicio de la sección de introducción -->
+<div class="intro-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="intro-text">
+                    <h3>¿Tienes preguntas?</h3>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <a href="{% url 'contact' %}" class="btn btn-md">Ponte en contacto</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ingresa a .com para más proyectos -->
+<!-- Fin de la sección de introducción -->
+
+{% endblock %}

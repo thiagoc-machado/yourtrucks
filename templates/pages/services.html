@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %} | Servicios {% endblock %}
+{% block content %}
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Servicios</h1>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li class="active">Servicios</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Servicios comienzan -->
+<div class="services content-area">
+    <div class="container">
+        <!-- Título principal -->
+        <div class="main-title text-center">
+            <h1>Nuestros <span>Servicios</span></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="service-info">
+                    <div class="number">1</div>
+                    <div class="icon">
+                        <i class="flaticon-support-2"></i>
+                    </div>
+                    <div class="detail">
+                        <h3>Soporte Gratuito</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="service-info">
+                    <div class="number">2</div>
+                    <div class="icon">
+                        <i class="flaticon-speed"></i>
+                    </div>
+                    <div class="detail">
+                        <h3>Súper Rápido</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ... (continua com os demais serviços) ... -->
+        </div>
+    </div>
+</div>
+<!-- Servicios terminan -->
+
+<!-- Centro de servicio comienza -->
+<div class="service-center content-area-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="inside-car service-car">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/JsMoc9evPJ0?si=5bPG-jlxrex_WZCt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="about-text">
+                    <h3>Nuestros Servicios <span>Video</span></h3>
+                    <p>Una mañana, cuando Gregor Samsa se despertó de sueños agitados, se encontró transformado en su cama en un horrible insecto. Yacía boca arriba como blindado, y si levantaba un poco la cabeza, podía</p>
+                    <p class="mb-0">mañana, cuando Gregor Samsa se despertó de sueños agitados, se encontró transformado en su cama en un horrible insecto. Yacía boca arriba como blindado, y si levantaba un poco la cabeza, podía verse transformado en su cama</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Centro de servicio termina -->
+
+{% endblock %}
