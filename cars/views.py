@@ -10,6 +10,8 @@ def cars(request):
 
 def car_detail(request, id):
     single_car = get_object_or_404(Car, pk=id)
+    fields = single_car._meta.get_fields()
+
     data = {
         'single_car': single_car,
     }
