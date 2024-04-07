@@ -20,16 +20,29 @@ def home(request):
         truck_photos__is_main=True,
         is_featured=True
     ).order_by('-created_date').distinct()
-
     photo_isMain = [car.truck_photos.filter(is_main=True).first() for car in data_isMain]
     if not photo_isMain:
         photo_isMain = [car.truck_photos.first() for car in all_cars]
     featured_cars_with_main_photo = [(car, photo) for car, photo in zip(featured_cars, photo_isMain)]
     all_cars_with_main_photo = [(car, photo) for car, photo in zip(all_cars, photo_isMain)]
+
+
+# TODO: Fix this part of the code to display all cars with main photo in the home page or show all cars with the first photo
+    all_cars_isMain = Car.objects.filter(
+    truck_photos__is_main=True
+    ).order_by('-created_date').distinct()
+
+    all_photo_isMain = [car.truck_photos.filter(is_main=True).first() for car in all_cars_isMain]
+    if not all_photo_isMain:
+        all_photo_isMain = [car.truck_photos.first() for car in all_cars_isMain]
+    all_photo_isMain = [(car, photo) for car, photo in zip(all_cars_isMain, all_photo_isMain)]
+
+
     data = {
         'teams': teams,
         'featured_cars': featured_cars_with_main_photo,
         'all_cars': all_cars_with_main_photo,
+        'all_cars_isMain': all_photo_isMain,
         'model_search': model_search,
         'city_search': city_search,
         'year_search': year_search,

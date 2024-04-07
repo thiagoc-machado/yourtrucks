@@ -7,12 +7,14 @@ def cars(request):
     for car in cars:
         main_photo = Photo.objects.filter(truck=car, is_main=True).first()
         car_with_main_photo.append((car, main_photo))
+    print(car_with_main_photo)
     if not car_with_main_photo:
-        car_with_main_photo = [(car, car.truck_photos.first()) for car in cars]
-
+        main_photo = Photo.objects.first()
+        car_with_main_photo = [(car, main_photo) for car in cars]
+    print(car_with_main_photo)
     data = {
         'car_with_main_photo': car_with_main_photo,
-        'cars': cars,	
+        'cars': cars,    
     }
     return render(request, 'cars/cars.html', data)
 
