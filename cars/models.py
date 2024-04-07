@@ -159,7 +159,6 @@ class Car(models.Model):
         ('5', '4x10'),
         ('6', '4x12'),
     )
-    
 
     # Basic
     is_featured = models.BooleanField(choices=IS_FEATURED_CHOICES, default=False, blank=True, null=True, verbose_name='Destacado')

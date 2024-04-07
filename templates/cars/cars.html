@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} | Nuestro inventario {% endblock %}
 {% block content %}
@@ -25,53 +26,54 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
                 <div class="row">
-                    {% for car in cars %}
-                    <div class="col-lg-6 col-md-6">
-                        <div class="car-box-3">
-                            <div class="car-thumbnail">
-                                <a href="{% url 'car_detail' car.id %}" class="car-img">
+                    {% for car, main_photo in car_with_main_photo %}
+                        <div class="col-lg-6 col-md-6">
+                            <div class="car-box-3">
+                                <div class="car-thumbnail">
                                     <div class="tag">En venta</div>
-                                    <div class="price-box">
-                                        <span>$ {{car.price | intcomma }}</span>
-                                    </div>
-                                    <img class="d-block w-100" src="{{ car.get_main_photo.car_photos.url }}" alt="car" style="min-height: 262px; max-height: 262px;">
-                                </a>
-                                <div class="carbox-overlap-wrapper">
-                                    <div class="overlap-box">
-                                        <div class="overlap-btns-area">
-                                            <div class="car-magnify-gallery">
-                                                {% for photo in car.get_all_photos %}
-                                                    <a href="{{ photo.car_photos.url }}" class="overlap-btn">
-                                                        <img class="hidden" src="{{ photo.car_photos.url }}">
+                                    <a href="{% url 'car_detail' car.id %}" class="car-img">
+                                        <div class="price-box">
+                                            <span>$ {{car.price | intcomma }}</span>
+                                        </div>
+                                        <img class="d-block w-100" src="{{ main_photo.truck_photos.url }}" alt="car" style="min-height: 262px; max-height: 262px;">
+                                    </a>
+                                    <div class="carbox-overlap-wrapper">
+                                        <div class="overlap-box">
+                                            <div class="overlap-btns-area">
+                                                <div class="car-magnify-gallery">
+                                                    {% for photo in car.truck_photos.all %}
+                                                    <a href="{{ photo.truck_photos.url }}" class="overlap-btn">
+                                                        <img class="hidden" src="{{ photo.truck_photos.url }}">
                                                     </a>
-                                                {% endfor %}
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
-                            </div>
-                            <!-- ### -->
-                            <div class="detail">
-                                <h1 class="title">
-                                    <a href="{% url 'car_detail' car.id %}">{{car.car_title}}</a>
-                                </h1>
-                                <div class="location">
-                                    <a href="{% url 'car_detail' car.id %}">
-                                        <i class="flaticon-pin"></i>{{car.state}}, {{car.city}}
-                                    </a>
+                                <!-- ### -->
+                                <div class="detail">
+                                    <h1 class="title">
+                                        <a href="{% url 'car_detail' car.id %}">{{car.car_title}}</a>
+                                    </h1>
+                                    <div class="location">
+                                        <a href="{% url 'car_detail' car.id %}">
+                                            <i class="flaticon-pin"></i>{{car.state}}, {{car.city}}
+                                        </a>
+                                    </div>
+                                    <ul class="facilities-list clearfix">
+                                        <li>{{car.fuel_type}}</li>
+                                        <li>{{car.miles | intcomma }} Kilometros</li>
+                                        <li>{{car.transmission}}</li>
+                                        <li>{{car.body_style}}</li>
+                                        <li>{{car.color}}</li>
+                                        <li>{{car.year}}</li>
+                                    </ul>
                                 </div>
-                                <ul class="facilities-list clearfix">
-                                    <li>{{car.fuel_type}}</li>
-                                    <li>{{car.miles | intcomma }} Kilometros</li>
-                                    <li>{{car.transmission}}</li>
-                                    <li>{{car.body_style}}</li>
-                                    <li>{{car.color}}</li>
-                                    <li>{{car.year}}</li>
-                                </ul>
                             </div>
                         </div>
-                    </div>
-                  {% endfor %}
+                    {% endfor %}
                 </div>
                 <!-- Page navigation start -->
                 <div class="pagination-box p-box-2 text-center">

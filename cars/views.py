@@ -1,17 +1,24 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Car
+from .models import Car, Photo
 
 def cars(request):
     cars = Car.objects.order_by('-created_date')
+    car_with_main_photo = []
+    for car in cars:
+        main_photo = Photo.objects.filter(truck=car, is_main=True).first()
+        car_with_main_photo.append((car, main_photo))
+    if not car_with_main_photo:
+        car_with_main_photo = [(car, car.truck_photos.first()) for car in cars]
+
     data = {
-        'cars': cars,
+        'car_with_main_photo': car_with_main_photo,
+        'cars': cars,	
     }
     return render(request, 'cars/cars.html', data)
 
 def car_detail(request, id):
     single_car = get_object_or_404(Car, pk=id)
     fields = single_car._meta.get_fields()
-
     data = {
         'single_car': single_car,
     }
@@ -19,7 +26,6 @@ def car_detail(request, id):
 
 def search(request):
     cars = Car.objects.order_by('-created_date')
-
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
@@ -51,7 +57,19 @@ def search(request):
         if max_price:
             cars = cars.filter(price__gte=min_price, price__lte=max_price)
 
+    car_with_main_photo = []
+
+    for car in cars:
+        main_photo = Photo.objects.filter(truck=car, is_main=True).first()
+        if main_photo:
+            car_with_main_photo.append((car, main_photo))
+        else:
+            first_photo = car.truck_photos.first()
+            if first_photo:
+                car_with_main_photo.append((car, first_photo))
+
     data = {
-        'cars': cars,
+        'cars_with_main_photo': car_with_main_photo, 
     }
+
     return render(request, 'cars/search.html', data)

@@ -15,15 +15,27 @@ def home(request):
     city_search = Car.objects.values_list('city', flat=True).distinct()
     year_search = Car.objects.values_list('year', flat=True).distinct()
     body_style_search = Car.objects.values_list('body_style', flat=True).distinct()
+
+    data_isMain = Car.objects.filter(
+        truck_photos__is_main=True,
+        is_featured=True
+    ).order_by('-created_date').distinct()
+
+    photo_isMain = [car.truck_photos.filter(is_main=True).first() for car in data_isMain]
+    if not photo_isMain:
+        photo_isMain = [car.truck_photos.first() for car in all_cars]
+    featured_cars_with_main_photo = [(car, photo) for car, photo in zip(featured_cars, photo_isMain)]
+    all_cars_with_main_photo = [(car, photo) for car, photo in zip(all_cars, photo_isMain)]
     data = {
         'teams': teams,
-        'featured_cars': featured_cars,
-        'all_cars': all_cars,
+        'featured_cars': featured_cars_with_main_photo,
+        'all_cars': all_cars_with_main_photo,
         'model_search': model_search,
         'city_search': city_search,
         'year_search': year_search,
         'body_style_search': body_style_search,
     }
+
     return render(request, 'pages/home.html', data)
 
 

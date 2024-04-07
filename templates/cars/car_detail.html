@@ -5,7 +5,6 @@
 
 {% load static %}
 {% load humanize %}
-<!-- ### -->
 <!-- Sub banner start -->
 <div class="sub-banner overview-bgi">
     <div class="container breadcrumb-area">
@@ -40,7 +39,7 @@
                         </div>
                     </div>
                     
-                    <div id="carDetailsSlider" class="carousel car-details-sliders slide mb-40">
+                    <div id="carDetailsSlider" class="carousel car-details-sliders slide mb-40" data-ride="carousel">
                         <!-- main slider carousel items -->
                         <div class="carousel-inner">
                             {% for photo in single_car.truck_photos.all %}
@@ -52,6 +51,14 @@
                             {% endfor %}
                         </div><!-- ### -->
                     
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#carDetailsSlider" role="button" data-slide="prev"><<
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carDetailsSlider" role="button" data-slide="next">>>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        
                         <!-- main slider carousel nav controls -->
                         <div class="carousel-indicators-section clearfix">
                             <ul class="carousel-indicators car-properties list-inline nav nav-justified">
@@ -66,6 +73,7 @@
                         </div>
                     </div>
                     
+                    
 					<!-- ### -->
                     <!-- Tabbing box start -->
                     <div class="tabbing tabbing-box mb-40">
@@ -77,10 +85,10 @@
                                 <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two" aria-selected="false">Características</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two" aria-selected="false">Características Tecnicas</a>
+                                <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="two" aria-selected="false">Características Tecnicas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two" aria-selected="false">Acessorios</a>
+                                <a class="nav-link" id="four-tab" data-toggle="tab" href="#four" role="tab" aria-controls="two" aria-selected="false">Acessorios</a>
                             </li>
                             
                         </ul>
@@ -98,203 +106,289 @@
                             <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
                                 <div class="features-info mb-50">
                                     <h3 class="heading-2">Características</h3>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                            <ul>
-                                                <li>
-                                                    {{single_car.features}}
-                                                </li>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Característica</th>
+                                                    <th>Valor</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Referencia</td>
+                                                    <td>{{single_car.ref}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tipo de cabina</td>
+                                                    <td>{{ single_car.get_cabin_display }}</td>
+                                                    <!-- <td>{{single_car.cabin}}</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <td>Primera matriculación</td>
+                                                    <td>{{single_car.first_registration}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Marca</td>
+                                                    <td>{{single_car.brand}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Lado del conductor</td>
+                                                    <!-- <td>{{single_car.driver_side}}</td> -->
+                                                    <td>{{ single_car.get_driver_side_display }}</td>
 
-                                            </ul>
-                                        </div>
-
-
+                                                </tr>
+                                                <tr>
+                                                    <td>Color exterior</td>
+                                                    <!-- <td>{{single_car.color}}</td> -->
+                                                    <td>{{ single_car.get_color_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Color interior</td>
+                                                    <!-- <td>{{single_car.color_int}}</td> -->
+                                                    <td>{{ single_car.get_color_int_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Modelo</td>
+                                                    <td>{{single_car.model}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Kilometraje</td>
+                                                    <td>{{single_car.kilometrage}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-
+                            
+                            <div class="tab-pane fade" id="three" role="tabpanel" aria-labelledby="three-tab">
+                                <div class="features-info mb-50">
+                                    <h3 class="heading-2">Características Técnicas</h3>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Campo</th>
+                                                    <th>Valor</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Motor</td>
+                                                    <td>{{single_car.engine}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tipo de motor</td>
+                                                    <td>{{single_car.engine_type}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tacógrafo</td>
+                                                    <!-- <td>{{single_car.tacho}}</td> -->
+                                                    <td>{{ single_car.get_tacho_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Anchura</td>
+                                                    <td>{{single_car.width}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Longitud</td>
+                                                    <td>{{single_car.length}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Capacidad de combustible</td>
+                                                    <td>{{single_car.fuel_capacity}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Transmisión</td>
+                                                    <!-- <td>{{single_car.transmission}}</td> -->
+                                                    <td>{{ single_car.get_transmission_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Altura de la quinta rueda</td>
+                                                    <td>{{single_car.fifth_wheel_height}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cantidad de depósitos</td>
+                                                    <!-- <td>{{single_car.qty_of_deposits}}</td> -->
+                                                    <td>{{ single_car.get_qty_of_deposits_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cantidad de marchas</td>
+                                                    <!-- <td>{{single_car.qty_of_gears}}</td> -->
+                                                    <td>{{ single_car.get_qty_of_gears_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Altura</td>
+                                                    <td>{{single_car.height}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Distancia entre ejes</td>
+                                                    <td>{{single_car.axis_distance}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Distancia del eje uno</td>
+                                                    <td>{{single_car.axis_one_distance}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Frenos del eje uno</td>
+                                                    <td>{{single_car.axis_one_breaks}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Suspensión del eje uno</td>
+                                                    <!-- <td>{{single_car.axis_one_suspension}}</td> -->
+                                                    <td>{{ single_car.get_axis_one_suspension_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Peso del eje uno</td>
+                                                    <td>{{single_car.axis_one_weight}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Porcentaje del eje uno</td>
+                                                    <!-- <td>{{single_car.axis_one_percentage}}</td> -->
+                                                    <td>{{ single_car.get_axis_one_percentage_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Distancia del eje dos</td>
+                                                    <td>{{single_car.axis_two_distance}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Frenos del eje dos</td>
+                                                    <td>{{single_car.axis_two_breaks}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Suspensión del eje dos</td>
+                                                    <!-- <td>{{single_car.axis_two_suspension}}</td> -->
+                                                    <td>{{ single_car.get_axis_two_suspension_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Peso del eje dos</td>
+                                                    <td>{{single_car.axis_two_weight}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Porcentaje del eje dos</td>
+                                                    <!-- <td>{{single_car.axis_two_percentage}}</td> -->
+                                                    <td>{{ single_car.get_axis_two_percentage_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Neumáticos delanteros</td>
+                                                    <td>{{single_car.front_tire}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Neumáticos detrás</td>
+                                                    <td>{{single_car.rear_tire}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ruedas</td>
+                                                    <!-- <td>{{single_car.weels}}</td> -->
+                                                    <td>{{ single_car.get_weels_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Camas</td>
+                                                    <!-- <td>{{single_car.beds}}</td> -->
+                                                    <td>{{ single_car.get_beds_display }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tipo de retarder</td>
+                                                    <!-- <td>{{single_car.drive_train}}</td> -->
+                                                    <td>{{ single_car.get_drive_train_display }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-pane fade" id="four" role="tabpanel" aria-labelledby="four-tab">
+                                <div class="features-info mb-50">
+                                    <h3 class="heading-2">Acessorios</h3>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                            <ul>
+                                                {% for accessory in single_car.Accessory.all %}
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                                                      </svg>
+                                                    {{ accessory.name }}
+                                                </li>
+                                                {% empty %}
+                                                <li>No hay accesorios disponibles</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
                         </div>
                     </div>
 
 					<!-- ### -->
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="sidebar-right">
-                    <!-- Advanced search start -->
-                    <div class="widget advanced-search d-none-992">
-                        <button class="btn btn-danger bomd btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Envie un mensaje</button>
-
-
-                        <br>
-                        <h3 class="sidebar-title">Especificaciones del vehículo</h3>
-                        <ul>
-                            <li>
-                                <span><b>Color:</b> </span>{{single_car.color}}
-                            </li>
-                            <li>
-                                <span><b>Modelo:</b> </span>{{single_car.model}}
-                            </li>
-                            <li>
-                                <span><b>Año:</b> </span>{{single_car.year}}
-                            </li>
-                            <li>
-                                <span><b>Condición:</b> </span>{{single_car.condition}}
-                            </li>
-                            <li>
-                                <span><b>Estilo:</b> </span>{{single_car.body_style}}
-                            </li>
-                            <li>
-                                <span><b>Motor:</b> </span>{{single_car.engine}}
-                            </li>
-                            <li>
-                                <span><b>Transmisión:</b> </span>{{single_car.transmission}}
-                            </li>
-                            <li>
-                                <span><b>Interior:</b> </span>{{single_car.interior}}
-                            </li>
-                            <li>
-                                <span><b>Kilometros:</b> </span>{{single_car.miles | intcomma}} Kilometros
-                            </li>
-                            <li>
-                                <span><b>Puertas:</b> </span>{{single_car.doors}}
-                            </li>
-                            <li>
-                                <span><b>Pasajeros:</b> </span>{{single_car.passengers}}
-                            </li>
-                            <li>
-                                <span><b>VIN No.:</b> </span>{{single_car.vin_no}}
-                            </li>
-                            <li>
-                                <span><b>Mileage:</b> </span>{{single_car.milage}}
-                            </li>
-
-                            <li>
-                                <span><b>Combustible:</b> </span>{{single_car.fuel_type}}
-                            </li>
-                            <li>
-                                <span><b>Dueños:</b> </span>{{single_car.no_of_owners}}
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Inquiry Modal -->
-                    <div class="modal fade" id="inquiryModal" role="dialog">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="contact-dealer modal-header">
-                            <!-- <h5 class="modal-title" id="inquiryModalLabel">Contact Dealer</h5> -->
-                            <center><img src="{% static 'img/logos/cardealerLogo.png' %}"></center>
-                            <button type="button" class="close" data-dismiss="modal">
-                              <span>&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="{% url 'inquiry' %}" method="POST">
-                              {% csrf_token %}
-
-                              {% if user.is_authenticated %}
-                                <input type="hidden" name="user_id" value="{{user.id}}">
-                              {% else %}
-                                <input type="hidden" name="user_id" value="0">
-                              {% endif %}
-
-                              <input type="hidden" name="car_id" value="{{single_car.id}}">
-                                <div class="form-group">
-                                  <label for="name" class="col-form-label">Hola, mi nombre es</label>
-                                  <div class="row">
-                                    <div class="col">
-                                      <input type="text" name="first_name" class="form-control" placeholder="First Name"
-                                      {% if user.is_authenticated %} value="{{user.first_name}}"  {% endif %} required>
-                                    </div>
-                                    <div class="col">
-                                      <input type="text" name="last_name" class="form-control" placeholder="Last Name"
-                                       {% if user.is_authenticated %} value="{{user.last_name}}"  {% endif %} required>
-                                    </div>
-                                  </div>
-                                </div>
-                                  <div class="form-group">
-                                      <select class="form-control" id="sel1" name="customer_need">
-                                        <option value="I'm interested in this">Estoy interesada en esto</option>
-                                        <option value="I'd like to know your best price for this">Me gustaría saber el mejor precio por esto.</option>
-                                        <option value="I'd like to Schedule a Test Drive">Me gustaría programar un Test Drive</option>
-                                        <option value="Check home delivery options">Consulta opciones de entrega a domicilio</option>
-                                        <option value="I'd like a history report for this">Me gustaría un informe histórico para esto.</option>
-                                        <option value="Discuss Financing">Discutir el financiamiento</option>
-                                        <option value="Others [Mention Below]">Otros [Mencione abajo]</option>
-                                      </select>
-                                    </div>
-									<!-- ### -->
-                                <div class="form-group">
-                                  <input type="text" name="car_title" class="form-control" value="{{ single_car.car_title }}" readonly>
-                                </div>
-
-                                <div class="form-group">
-                                  <label for="name" class="col-form-label">vivo en</label>
-                                  <div class="row">
-                                    <div class="col">
-                                      <input type="text" name="city" class="form-control" placeholder="Ciudad" required>
-                                    </div>
-                                    <div class="col">
-                                      <input type="text" name="state" class="form-control" placeholder="comunidad autonoma" required>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="form-group">
-                                  <div class="row">
-                                    <div class="col">
-                                        <label for="name" class="col-form-label">Puedes contactarme por correo electrónico a</label>
-                                      <input type="email" name="email" class="form-control" placeholder="Correo eletronico"
-                                       {% if user.is_authenticated %} value="{{user.email}}"  {% endif %} required>
-                                    </div>
-                                    <div class="col">
-                                        <label for="phone" class="col-form-label">o por teléfono al</label>
-                                      <input type="text" name="phone" placeholder="Numero de teléfono (opcional)" class="form-control">
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="form-group">
-                                  <label for="message" class="col-form-label">Mensajes adicionales</label>
-                                  <textarea name="message" class="form-control" placeholder="Ingrese su mensaje aquí"></textarea>
-                                </div>
-                                <hr>
-                                <input type="submit" value="Submit" class="btn btn-block btn-dark">
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Question start -->
-                    <div class="widget question">
-                        <h5 class="sidebar-title">¿Tiene alguna pregunta?</h5>
-                        <ul class="contact-info">
-                            <li>
-                                <i class="flaticon-pin"></i>Calle dels Argenters, 43 Alcasser-Valencia
-                            </li>
-                            <li>
-                                <i class="flaticon-mail"></i><a href="mailto:info@carweb.cm">vf@yourtrucks.es</a>
-                            </li>
-                            <li>
-                                <i class="flaticon-phone"></i><a href="tel:+0477-85x6-552">+34 962 22 77 59</a>
-                            </li>
-                        </ul>
-                        <div class="social-list clearfix">
-                            <ul>
-                                <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#" class="rss-bg"><i class="fa fa-rss"></i></a></li>
-                                <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
+            <div class="col-lg-4 col-md-12 col-xs-12">
+                <aside id="sidebar">
+                    <!-- Car details start -->
+                    <div class="widget widget-sidebar sidebar-properties">
+                        <h5 class="sidebar-title" style="background-color: #ff0000; color: #ffffff; padding: 10px;">Detalles del Vehículo</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th>Precio</th>
+                                        <td>$ {{ single_car.price | intcomma }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Condición</th>
+                                        <!-- <td>{{ single_car.condition }}</td> -->
+                                        <td>{{ single_car.get_condition_display }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kilometraje</th>
+                                        <td>{{ single_car.mileage | intcomma }} km</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Modelo</th>
+                                        <td>{{ single_car.model }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Color</th>
+                                        <!-- <td>{{ single_car.color }}</td> -->
+                                        <td>{{ single_car.get_color_display }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Transmisión</th>
+                                        <!-- <td>{{ single_car.transmission }}</td> -->
+                                        <td>{{ single_car.get_transmission_display }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Año</th>
+                                        <td>{{ single_car.year }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Motor</th>
+                                        <td>{{ single_car.engine }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estilo</th>
+                                        <td>{{ single_car.body_style }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Combustible</th>
+                                        <td>{{ single_car.fuel_type }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                </div>
+                    <!-- Car details end -->
+                </aside>
             </div>
+            
         </div>
     </div>
-</div><!-- ### -->
-<!-- Properties details page end -->
+</div>
+<!-- Car details page end -->
+<style>
+    .carousel-control {
+        color: white; 
+        font-weight: bold;
+    }
+</style>
 {% endblock %}

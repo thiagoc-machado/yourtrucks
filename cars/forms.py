@@ -20,8 +20,8 @@ class CarAdminForm(forms.ModelForm):
         for upload in self.files.getlist("photo"):
             validate_image_file_extension(upload)
 
-def save_photos(self, car):
-    """Process each uploaded image."""
-    for upload in self.files.getlist("photos"):
-        photo_instance = Photo(truck=car, truck_photos=upload)
-        photo_instance.save()
+    def save_photos(self, car):
+        """Process each uploaded image."""
+        for upload in self.files.getlist("photos"):
+            photo_instance = Photo(truck=car, truck_photos=upload)
+            photo_instance.save()

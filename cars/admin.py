@@ -3,6 +3,7 @@ from .models import Car, Accessory, Photo, Video
 from .forms import CarAdminForm
 from django.utils.html import format_html
 
+
 class AccessoryInline(admin.TabularInline):
     model = Car.accessories.through
     extra = 1
